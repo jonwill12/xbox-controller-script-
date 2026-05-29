@@ -1,0 +1,16 @@
+#include <SoftwareSerial.h>
+
+SoftwareSerial BT(2, 3); // hc05 TX - nano D2 , hc05 RX - nano D3
+
+void setup() {
+  Serial.begin(9600);
+  BT.begin(9600);
+  Serial.println("Ready");
+}
+
+void loop() {
+  if (BT.available()) {
+    char c = BT.read();
+    Serial.println(c);
+  }
+}
