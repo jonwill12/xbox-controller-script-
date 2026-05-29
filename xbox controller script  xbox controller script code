@@ -1,0 +1,48 @@
+import pygame
+import serial
+import time
+
+ser = serial.Serial("COM5", 9600)
+
+pygame.init()
+pygame.joystick.init()
+
+joystick = pygame.joystick.Joystick(0)
+joystick.init()
+
+while True:
+    pygame.event.pump()
+
+    if joystick.get_button(0):
+        ser.write(b"A\n")
+
+    if joystick.get_button(1):
+        ser.write(b"B\n")
+
+    if joystick.get_button(2):
+        ser.write(b"X\n")
+
+    if joystick.get_button(3):
+        ser.write(b"Y\n")
+
+    if joystick.get_button(4):
+        ser.write(b"Left Bumper\n")
+    
+    if joystick.get_button(5):
+        ser.write(b"Right Bumper\n")
+    "6-7 are useless" 
+    if joystick.get_button(8):
+        ser.write(b"Left Stick Push\n")
+    
+    if joystick.get_button(9):
+        ser.write(b"Right Stick Push\n") 
+    
+    lt = joystick.get_axis(4)
+    rt = joystick.get_axis(5)
+
+    if rt > 0.5:
+        ser.write(b"Right Triger\n")
+
+    if lt > 0.5:
+        ser.write(b"Left Triger\n")
+    time.sleep(0.05)
